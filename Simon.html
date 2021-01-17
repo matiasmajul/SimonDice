@@ -2,23 +2,47 @@
 <html>
 
 <head>
+    <meta name=viewport content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <title>Simon Dice</title>
+    <link rel="shortcut icon" href="image/favicon.ico">
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body >
-    <div class="score">
-        <p id="level">Nivel: 1</p>
-    </div>
+    <header>
+            <h1>Simón Dice</h1>
+    </header>
 
     <div class="gameboard">
-            <div id="celeste" class="color celeste left" data-color="celeste"></div>
-            <div id="violeta" class="color violeta right" data-color="violeta"></div>
-            <div id="naranja" class="color naranja left" data-color="naranja"></div>
-            <div id="verde" class="color verde right" data-color="verde"></div>
+        <div class="score">
+            <p id="level">Nivel: 1</p>
+        </div>
+
+        <div class="media">
+            <img class="media_icon"src="image/audio.png" alt="Icon Sound">
+            <ul>
+                <li>
+                    <label for="Sound">Sound</label>
+                    <input class="changeSound" type="range" min="0" max="1" value="0.5"step="any" >
+                </li>
+                <li>
+                    <label for="Music">Music</label>
+                    <input class="changeMusic" type="range" min="0" max="0.1" value="0.01"step="any">
+                </li>
+            </ul>
+        </div>
+        <div class="container--grid">
+        <div class="container">
+            <div id="celeste" class="color celeste left top" data-color="celeste"></div>
+            <div id="violeta" class="color violeta right top" data-color="violeta"></div>
+            <div id="naranja" class="color naranja left bottom" data-color="naranja"></div>
+            <div id="verde" class="color verde right bottom" data-color="verde"></div>
+            <div class="circle"></div>
             <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()">Empezar a jugar!</button>
+        </div>
+    </div>
+
     </div>
     <section class="sound__secuencia">
         <audio id="sound_do" src="sound/do.wav"></audio>
@@ -27,10 +51,19 @@
         <audio id="sound_fa" src="sound/fa.wav"></audio>
         <audio id="sound_aplausos" src="sound/aplausos.mp3"></audio>
         <audio id="sound_perdiste" src="sound/perdiste.mp3"></audio>
-    </section >
+        <audio id="music" src="sound/music.mp3"  id="Juego-music"  style="display: none;" loop></audio>
+    </section>
+
+    <footer>
+        <div class="Terminos">
+            <p></p>
+        </div>
+        <div class="autor">
+            <p> by <a href="https://github.com/matiasmajul">Matias Majul</a></p>
+        </div>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="Simon.js"> </script>
 </body>
-
 </html>

@@ -1,33 +1,40 @@
 //Sounds
+const elementSound = document.querySelector(".changeSound")
+const elementMusic = document.querySelector(".changeMusic")
 const sound_do = document.getElementById('sound_do')
 const sound_re = document.getElementById('sound_re')
 const sound_mi = document.getElementById('sound_mi')
 const sound_fa = document.getElementById('sound_fa')
 const sound_aplausos = document.getElementById('sound_aplausos')
 const sound_perdiste = document.getElementById('sound_perdiste')
+const music = document.getElementById("music")
 
+//Colors
 const celeste = document.getElementById('celeste')
 const violeta = document.getElementById('violeta')
 const naranja = document.getElementById('naranja')
 const verde = document.getElementById('verde')
 
+
+//Button
 const btnEmpezar = document.getElementById('btnEmpezar')
 
+//Level
 const score = document.getElementById('level')
 const ULTIMO_NIVEL = 10
 
 class Juego {
-    constructor() {
 
+
+    constructor() {
         this.inicializar()
         this.generarSecuencia()
         setTimeout(this.siguienteNivel, 500)
-
-
     }
 
+
     inicializar() {
-        sound_aplausos.pause()
+        this.setSound()
         this.elegirColor = this.elegirColor.bind(this)
         this.siguienteNivel = this.siguienteNivel.bind(this)
         this.toggleBtnEmpezar()
@@ -117,10 +124,11 @@ class Juego {
     iluminarSecuencia() {
         for (let i = 0; i < this.nivel; i++) {
             const color = this.transformarNumeroAColor(this.secuencia[i])
-            setTimeout(() => this.playSound(color), 500 * i)
-            setTimeout(() => this.iluminarColor(color), 500 * i)
+            setTimeout(() => this.playSound(color), 600 * i)
+            setTimeout(() => this.iluminarColor(color), 600 * i)
         }
     }
+
     iluminarColor(color) {
         this.colores[color].classList.add('light')
         setTimeout(() => this.apagarColor(color), 250)
@@ -136,6 +144,8 @@ class Juego {
         this.colores.violeta.addEventListener('click', this.elegirColor)
         this.colores.naranja.addEventListener('click', this.elegirColor)
     }
+
+    
     eliminarEventosClick() {
         this.colores.celeste.removeEventListener('click', this.elegirColor)
         this.colores.verde.removeEventListener('click', this.elegirColor)
@@ -150,6 +160,7 @@ class Juego {
         this.iluminarColor(nombreColor)
         this.playSound(nombreColor)
 
+        //Si el numerjo elegido es igual al de la secuencia
         if (numeroColor === this.secuencia[this.subnivel]) {
             this.subnivel++
             if (this.subnivel === this.nivel) {
@@ -164,14 +175,14 @@ class Juego {
         } else {
             this.perdioElJuego()
         }
-
-
     }
+
     ganoElJuego() {
         sound_aplausos.play()
         swal('Fin del juego', 'Ganaste!', 'success')
             .then(this.inicializar.bind(this))
     }
+
     perdioElJuego() {
         sound_perdiste.play()
         swal('Fin del juego', 'Perdiste!', 'error')
@@ -182,10 +193,36 @@ class Juego {
 
     }
 
-    aumentarScore(){
+    aumentarScore() {
         score.innerHTML = `Nivel: ${this.nivel}`
     }
+
+    //Ajuste de sonido al iniciar
+    setSound(){
+        music.play()
+        music.volume = 0.01
+        sound_perdiste.volume= 0.05
+        sound_aplausos.volume = 0.05
+        sound_aplausos.pause()
+    }
 }
+
+
 function empezarJuego() {
     window.juego = new Juego()
 }
+
+//Ajuste de volumen de teclas
+elementSound.oninput = ()=>{
+    sound_do.volume = elementSound.value;
+    sound_re.volume = elementSound.value;
+    sound_mi.volume = elementSound.value;
+    sound_fa.volume = elementSound.value;
+}
+
+//Ajuste de volumen de musica
+elementMusic.oninput = () =>{
+    music.volume = elementMusic.value;
+}
+
+
